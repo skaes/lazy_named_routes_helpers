@@ -1,0 +1,27 @@
+= Lazy Routing Helper Generation for Named Routes
+
+A plugin for Rails 3.x which defers generation of routing helpers for named routes, such
+as ..._path and ..._url, to when they're first accessed.
+
+This can reduce the initial footprint of your Rails application, especially for ruby
+1.8.7, and and will speed up starting a rails console.
+
+== Author
+
+Stefan Kaes <skaes@railexpress.de>
+
+
+== Usage
+
+Require the railtie somewhere in application.rb
+
+  require "lazy_named_routes_helpers/railtie"
+
+
+== Installation
+
+  gem install lazy_named_routes_helpers
+
+or let bundler manage it.
+
+
