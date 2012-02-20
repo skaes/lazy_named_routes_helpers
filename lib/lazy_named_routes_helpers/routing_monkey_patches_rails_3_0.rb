@@ -2,6 +2,7 @@
 # modified:   actionpack/lib/action_dispatch/routing/route_set.rb
 # modified:   actionpack/lib/action_dispatch/assertions/routing.rb
 # modified:   actionpack/lib/action_view/test_case.rb
+# modified:   actionpack/lib/action_dispatch/testing/integration.rb
 
 require 'action_dispatch/routing/route_set'
 module ActionDispatch
@@ -118,6 +119,19 @@ if Rails.env.test?
     end
   end
 
+  require 'action_dispatch/testing/integration'
+  module ActionDispatch
+    class IntegrationTest
+      def method_missing(selector, *args, &block)
+        if @integration_session._routes.named_routes.helper_method?(selector)
+          @integration_session.__send__(selector, *args, &block)
+        else
+          super
+        end
+      end
+    end
+  end
+
   require 'action_view/test_case'
   module ActionView
     class TestCase
@@ -130,4 +144,5 @@ if Rails.env.test?
       end
     end
   end
+
 end
