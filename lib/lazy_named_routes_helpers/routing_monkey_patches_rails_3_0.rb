@@ -123,7 +123,7 @@ if Rails.env.test?
   module ActionDispatch
     class IntegrationTest
       def method_missing(selector, *args, &block)
-        if @integration_session._routes.named_routes.helper_method?(selector)
+        if @integration_session && @integration_session._routes.named_routes.helper_method?(selector)
           @integration_session.__send__(selector, *args, &block)
         else
           super
